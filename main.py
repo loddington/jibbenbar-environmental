@@ -6,7 +6,7 @@ import time
 import esp32
 from config import WIFI_SSID, WIFI_PASSWORD, SERVER_URL, HOSTNAME  # Import from config
 
-machine.freq(80000000)
+machine.freq(80000000) # Lower CPU frequency to reduce battery usage
 
 BUTTON_PIN = 21  # GPIO 27
 RESTART_INTERVAL = 86400  # 24 hours
@@ -115,7 +115,7 @@ def main():
         
         # Going into light sleep if not woken by button
         print("Going into light sleep...")
-        machine.lightsleep()  # Directly go to light sleep
+        machine.lightsleep()  # Directly go to light sleep until restart or bucket tip. 
 
 # Main program
 try:
