@@ -6,12 +6,13 @@ WIFI_PASSWORD = "XXXXXXXXXXXXX"
 SERVER_URL = "http://API-ENDPOINT-SERVER:5000/sensors/bucket_tips/increment"
 
 
-# Just so I can see in the logs that the machine is alive of flapping.
-SERVER_URL_RESTART ="http://severn-data.loddington.com:5000/sensors/restart/increment" 
+# Just so I can see in the logs that the machine is alive or flapping.
+SERVER_URL_RESTART ="http://API-ENDPOINT-SERVER:5000/sensors/restart/increment" 
 
 # Hostname for DHCP identification
-HOSTNAME = "ESP-Battery-Room"
+HOSTNAME = "Jibbenbar-Rain"
 LORA_ID = "XXXXXXXXX"
+LORA_KEY = "XXXXXXXX"
 
 LORA_FREQ = "AU915"
 
