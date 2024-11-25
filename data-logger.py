@@ -1,28 +1,41 @@
 from flask import Flask, jsonify, request
 
 # Simple RestAPI for gathering data 
-# This really needs to have security added to it to authenticate PUT requests
 
 
 # You can see what is in the Data logger by using this command:
 # curl  -H "Content-Type: application/json"  -X GET http://localhost:5000/sensors
 
+API_KEY = "XXXXXXXX"
 
 sensors = [
-    {
-        'id': 'bucket_tips',
-        'sensor_value': 0
-    },
-    {
-        'id': 'probe_temp',
-        'sensor_value': 0
-    }
-
+    {'id': 'bucket_tips', 'sensor_value': 0},
+    {'id': 'probe_temp', 'sensor_value': 0},
 ]
-
 
 app = Flask(__name__)
 
+ef authenticate():
+    """Authenticate the request using an API key."""
+    key = request.headers.get('X-API-Key')
+    if key != API_KEY:
+        logging.warning("Unauthorized access attempt.")
+        abort(401, description="Unauthorized")
+
+@app.errorhandler(401)
+def unauthorized(error):
+    logging.error(f"401 Unauthorized: {error.description}")
+    return jsonify({'error': 'Unauthorized'}), 401
+
+@app.errorhandler(404)
+def not_found(error):
+    logging.error(f"404 Not Found: {error.description}")
+    return jsonify({'error': 'Not Found'}), 404
+
+@app.errorhandler(400)
+def bad_request(error):
+    logging.error(f"400 Bad Request: {error.description}")
+    return jsonify({'error': 'Bad Request'}), 400
 
 @app.route('/')
 def hello_world():
