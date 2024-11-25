@@ -1,8 +1,9 @@
 from flask import Flask, jsonify, request, abort
+import logging
 
-# Simple RestAPI for gathering data - Flask is good as a proof of concept but not very robust.
+# Simple RestAPI for gathering data - Flask is good as a proof of concept but not robust.
 # Not great security. The API Token is passed in plain text over the network. Need to proxy this app behind an SSL server like nginx or apache. 
-
+# API Key is only used for PUT requests, not GET. 
 
 # You can see what is in the Data logger by using this command:
 # curl  -H "Content-Type: application/json"  -X GET http://localhost:5000/sensors
@@ -59,6 +60,7 @@ def get_sensor(sensor_id):
 
 @app.route('/sensors/<string:sensor_id>', methods=['PUT'])
 def update_sensors(sensor_id):
+    authenticate()
     sensor = [sensor for sensor in sensors if sensor['id'] == sensor_id]
     if len(sensor) == 0:
         return jsonify({'error': 'Sensor not found'})
@@ -67,10 +69,12 @@ def update_sensors(sensor_id):
 
 
 
+
 # A new very simple endpoint to increment the sensor_value by 1
 
 @app.route('/sensors/<string:sensor_id>/increment', methods=['PUT'])
 def increment_sensor_value(sensor_id):
+    authenticate()
     sensor = [sensor for sensor in sensors if sensor['id'] == sensor_id]
     if len(sensor) == 0:
         return jsonify({'error': 'Sensor not found'})
