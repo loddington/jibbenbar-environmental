@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 
-# Simple RestAPI for gathering data 
+# Simple RestAPI for gathering data - Flask is good as a proof of concept but not very robust.
+# Not great security. The API Token is passed in plain text over the network. Need to proxy this app behind an SSL server like nginx or apache. 
 
 
 # You can see what is in the Data logger by using this command:
@@ -78,4 +79,4 @@ def increment_sensor_value(sensor_id):
 
 if __name__ == '__main__':
    # app.run(debug=False, port=5000)
-   app.run(host='0.0.0.0',debug=False, port=5000) # Allow connections on external interfaces - Handy when using ESP32
+   app.run(host='0.0.0.0',debug=False, port=5000) # Allow connections on external interfaces - consider the security implications of this. 
