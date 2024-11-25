@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, abort
 
 # Simple RestAPI for gathering data - Flask is good as a proof of concept but not very robust.
 # Not great security. The API Token is passed in plain text over the network. Need to proxy this app behind an SSL server like nginx or apache. 
