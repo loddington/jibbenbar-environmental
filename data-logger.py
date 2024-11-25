@@ -16,7 +16,7 @@ sensors = [
 
 app = Flask(__name__)
 
-ef authenticate():
+def authenticate():
     """Authenticate the request using an API key."""
     key = request.headers.get('X-API-Key')
     if key != API_KEY:
