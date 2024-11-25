@@ -7,6 +7,9 @@ from flask import Flask, jsonify, request, abort
 # You can see what is in the Data logger by using this command:
 # curl  -H "Content-Type: application/json"  -X GET http://localhost:5000/sensors
 
+# Example to update the datalogger from the command line
+# curl -d '{"id":"bucket_tips","sensor_value":"3"}' -H "Content-Type: application/json", -H "X-API-Key: XXXXXXXX" -X PUT http://localhost:5000/sensors/bucket_tips
+
 API_KEY = "XXXXXXXX"
 
 sensors = [
