@@ -4,7 +4,7 @@ import network
 import urequests
 import time
 import esp32
-from config import WIFI_SSID, WIFI_PASSWORD, SERVER_URL, HOSTNAME  # Import from config
+from config import WIFI_SSID, WIFI_PASSWORD, SERVER_URL, HOSTNAME, API_TOKEN  # Import from config
 
 machine.freq(80000000) # Lower CPU frequency to reduce battery usage
 
@@ -41,9 +41,14 @@ def send_put_request():
     retry_delay = 1.5  # seconds
     put_timeout = 5  # seconds
 
+    headers = {
+        "Content-Type": "application/json",
+        "X-API-Key": API_TOKEN  
+    }
+    
     for retry_count in range(max_retries):
         try:
-            response = urequests.put(SERVER_URL, timeout=put_timeout)
+            response = urequests.put(SERVER_URL, headers=headers, timeout=put_timeout)
             if response.status_code == 200:
                 print("PUT request sent successfully")
                 response.close()  # Close response to free up resources
